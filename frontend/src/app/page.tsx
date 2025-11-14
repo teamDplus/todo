@@ -1,45 +1,23 @@
 "use client";
-import { gql } from "@apollo/client";
-import { useQuery } from "@apollo/client/react";
-import createApolloClient from "./graphql/apollo-client";
 
-const client = createApolloClient();
+import { Box, Button, HStack, Textarea } from "@chakra-ui/react";
+import { useState } from "react";
 
-type Todo = {
-  id: string;
-  title: string;
-  completed: boolean;
-};
-
-type GetTodosData = {
-  todos: Todo[];
-};
-
-const GET_TODOS = gql`
-  query {
-    todos {
-      id
-      title
-      completed
-    }
-  }
-`;
-
-export default function Todos() {
-  const { data, loading } = useQuery<GetTodosData>(GET_TODOS, { client });
-  
-  if (loading) return <p>Loading...</p>;
+export default function TodoUI() {
+  // 仮データ（見た目確認用）
+  const [todos] = useState([
+    { id: 1, title: "買い物に行く", completed: false },
+    { id: 2, title: "Next.js の勉強", completed: true },
+    { id: 3, title: "Todo App のデザインを作る", completed: false },
+  ]);
 
   return (
-    <>
-   <h2>Hello</h2> 
-    <ul>
-      {data?.todos.map((todo) => (
-        <li key={todo.id}>
-          {todo.title} {todo.completed ? "✅" : "❌"}
-        </li>
-      ))}
-    </ul>
-    </>
+   <div>
+      <h2>ToDoアプリ</h2>
+      <HStack >
+        <Textarea placeholder="Comment..." />
+        <Button>追加</Button>
+      </HStack>
+    </div>
   );
 }
