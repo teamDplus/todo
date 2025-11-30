@@ -12,14 +12,30 @@ import {
 import DeleteButton from "./components/Atoms/Button/DeleteButton";
 import EditButton from "./components/Atoms/Button/EditButton";
 import AddButton from "./components/Atoms/Button/AddButton";
+import { useState } from "react";
 
 export default function TodoUI() {
-  // 仮データ（見た目確認用）
-  const todos = [
-    { id: 1, title: "買い物に行く", completed: false },
-    { id: 2, title: "Next.js の勉強", completed: true },
-    { id: 3, title: "Todo App のデザインを作る", completed: false },
-  ];
+  type Todo = { id: string; title: string; completed: boolean };
+
+  const [inputValue, setInputValue] = useState("");
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const addTodo = () => {
+    if (!inputValue.trim()) return;
+
+    const newTodo: Todo = {
+      id: crypto.randomUUID(),
+      title: inputValue,
+      completed: false,
+    };
+    setTodos((prevTodo) => [...prevTodo, newTodo]);
+    setInputValue("");
+  };
+
   return (
     <>
       <Box
@@ -58,8 +74,15 @@ export default function TodoUI() {
               py={"2"}
               flex={"1"}
               _focus={{ ring: 2, ringColor: "blue.300", outline: "none" }}
+              value={inputValue}
+              onChange={handleChange}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  addTodo();
+                }
+              }}
             />
-            <AddButton />
+            <AddButton onClick={addTodo} />
           </HStack>
           <List.Root spaceY={"3"}>
             {todos.map((todo) => (

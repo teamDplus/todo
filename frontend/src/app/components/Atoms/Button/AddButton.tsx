@@ -1,6 +1,10 @@
 import { Button } from "@chakra-ui/react";
 
-const AddButton = () => {
+type Props = {
+  onClick: () => void;
+};
+
+const AddButton = ({ onClick }: Props) => {
   return (
     <Button
       bg={"blue.500"}
@@ -9,6 +13,7 @@ const AddButton = () => {
       py={"2"}
       borderRadius="xl"
       boxShadow={"sm"}
+      onClick={onClick}
     >
       追加
     </Button>
