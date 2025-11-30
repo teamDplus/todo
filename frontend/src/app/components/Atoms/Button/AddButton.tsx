@@ -4,7 +4,6 @@ type Props = {
   onClick: () => void;
 };
 
-// コメント
 const AddButton = ({ onClick }: Props) => {
   return (
     <Button
