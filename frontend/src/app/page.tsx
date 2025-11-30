@@ -12,10 +12,30 @@ import {
 import DeleteButton from "./components/Atoms/Button/DeleteButton";
 import EditButton from "./components/Atoms/Button/EditButton";
 import AddButton from "./components/Atoms/Button/AddButton";
-import { useTodo } from "@/hooks/useTodo";
+import { useState } from "react";
 
 export default function TodoUI() {
-  const { inputValue, todos, handleChange, addTodo, deleteTodo } = useTodo();
+  type Todo = { id: string; title: string; completed: boolean };
+
+  const [inputValue, setInputValue] = useState("");
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const addTodo = () => {
+    if (!inputValue.trim()) return;
+
+    const newTodo: Todo = {
+      id: crypto.randomUUID(),
+      title: inputValue,
+      completed: false,
+    };
+    setTodos((prevTodo) => [...prevTodo, newTodo]);
+    setInputValue("");
+  };
+
   return (
     <>
       <Box
@@ -85,7 +105,7 @@ export default function TodoUI() {
                 </Checkbox.Root>
                 <HStack gap={"2"}>
                   <EditButton />
-                  <DeleteButton onClick={() => deleteTodo(todo.id)} />
+                  <DeleteButton />
                 </HStack>
               </List.Item>
             ))}

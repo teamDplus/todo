@@ -1,10 +1,6 @@
 import { Button } from "@chakra-ui/react";
 
-type Props = {
-  onClick: () => void;
-};
-
-const DeleteButton = ({ onClick }: Props) => {
+const DeleteButton = () => {
   return (
     <Button
       bg={"red.500"}
@@ -14,7 +10,6 @@ const DeleteButton = ({ onClick }: Props) => {
       height="30px"
       borderRadius="xl"
       boxShadow={"sm"}
-      onClick={onClick}
     >
       削除
     </Button>
