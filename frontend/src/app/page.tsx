@@ -36,10 +36,6 @@ export default function TodoUI() {
     setInputValue("");
   };
 
-  const deletTodo = (id: string) => {
-    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
-  };
-
   return (
     <>
       <Box
@@ -86,7 +82,7 @@ export default function TodoUI() {
                 }
               }}
             />
-            <AddButton onClick={() => addTodo()} />
+            <AddButton onClick={addTodo} />
           </HStack>
           <List.Root spaceY={"3"}>
             {todos.map((todo) => (
@@ -109,7 +105,7 @@ export default function TodoUI() {
                 </Checkbox.Root>
                 <HStack gap={"2"}>
                   <EditButton />
-                  <DeleteButton onClick={() => deletTodo(todo.id)} />
+                  <DeleteButton />
                 </HStack>
               </List.Item>
             ))}
