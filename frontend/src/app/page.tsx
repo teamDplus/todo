@@ -62,7 +62,7 @@ export default function TodoUI() {
                 }
               }}
             />
-            <AddButton onClick={addTodo} />
+            <AddButton onClick={() => addTodo()} />
           </HStack>
           <List.Root spaceY={"3"}>
             {todos.map((todo) => (
